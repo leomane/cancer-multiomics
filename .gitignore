@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!*.tfvars.example
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+# GCP credentials — never commit these
+*-credentials.json
+*-keyfile.json
+service-account*.json
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files — query from BigQuery, don't store locally
+*.csv
+*.parquet
+*.tsv
+!*.example.csv
