@@ -28,6 +28,9 @@ dbt/logs/
 *-keyfile.json
 service-account*.json
 
+# Private operating manual — not for public repo
+CLAUDE.md
+
 # IDE
 .vscode/
 .idea/

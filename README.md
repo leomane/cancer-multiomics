@@ -204,7 +204,7 @@ flowchart TD
 ```
 cancer-multiomics/
 ├── README.md
-├── CLAUDE.md                          # AI assistant context & conventions
+├── ROADMAP.md                         # Living progress tracker
 │
 ├── notebooks/                         # Phase 0: EDA & exploration
 │   └── *.ipynb                        # BigQuery exploration notebooks
@@ -315,6 +315,10 @@ bq query --use_legacy_sql=false \
 **Phase 0 — EDA & Problem Discovery** (active)
 
 Building the foundational understanding of what data exists, how it connects across TCGA and CPTAC, and which cancer types have sufficient multi-omics coverage to support integrated analysis. This phase is deliberately exploratory — the goal is to let the data guide the analytical question rather than forcing a hypothesis onto incomplete coverage.
+
+Progress so far: TCGA and CPTAC datasets explored across mutations, RNA-seq, proteomics, and clinical data. Two integration strategies identified. Local development workflow established with bidirectional BQ Studio sync.
+
+**See [ROADMAP.md](ROADMAP.md) for detailed progress tracking across all phases.**
 
 ---
 
