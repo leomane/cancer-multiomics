@@ -79,10 +79,20 @@ def _api_request(url, method="GET", data=None):
         return json.loads(resp.read())
 
 
+def _clean_notebook(raw_bytes):
+    """Strip BQ Studio artifacts that break GitHub's notebook renderer."""
+    nb = json.loads(raw_bytes)
+    # BQ Studio stores widget state in a non-standard format that nbformat
+    # rejects (missing top-level 'state' key). These are runtime artifacts
+    # (interactive table/chart viewers) that regenerate on cell execution.
+    nb.get("metadata", {}).pop("widgets", None)
+    return json.dumps(nb, ensure_ascii=False, indent=1).encode("utf-8")
+
+
 def pull():
     url = f"{API}:readFile?path=content.ipynb"
     result = _api_request(url)
-    contents = base64.b64decode(result["contents"])
+    contents = _clean_notebook(base64.b64decode(result["contents"]))
     with open(NOTEBOOK, "wb") as f:
         f.write(contents)
     print(f"Pulled {NOTEBOOK} from BQ Studio ({len(contents):,} bytes)")
