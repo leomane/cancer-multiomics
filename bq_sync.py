@@ -80,12 +80,25 @@ def _api_request(url, method="GET", data=None):
 
 
 def _clean_notebook(raw_bytes):
-    """Strip BQ Studio artifacts that break GitHub's notebook renderer."""
+    """Strip BQ Studio artifacts that break GitHub rendering or add noise."""
     nb = json.loads(raw_bytes)
     # BQ Studio stores widget state in a non-standard format that nbformat
     # rejects (missing top-level 'state' key). These are runtime artifacts
     # (interactive table/chart viewers) that regenerate on cell execution.
     nb.get("metadata", {}).pop("widgets", None)
+    # BQ Studio injects "✅ Completed." status banners as display_data outputs
+    # after every SQL cell execution. Strip these — they're visual noise.
+    for cell in nb.get("cells", []):
+        cell["outputs"] = [
+            out for out in cell.get("outputs", [])
+            if not (
+                out.get("output_type") == "display_data"
+                and "Completed" in "".join(
+                    out.get("data", {}).get("text/html", [])
+                )
+                and len("".join(out.get("data", {}).get("text/html", []))) < 200
+            )
+        ]
     return json.dumps(nb, ensure_ascii=False, indent=1).encode("utf-8")
 
 
