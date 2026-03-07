@@ -44,3 +44,4 @@ Thumbs.db
 *.parquet
 *.tsv
 !*.example.csv
+.claude/

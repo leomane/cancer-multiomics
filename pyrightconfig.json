@@ -1,0 +1,6 @@
+{
+  "reportMissingModuleSource": false,
+  "reportMissingImports": "warning",
+  "extraPaths": [],
+  "ignore": ["cancer_multiomics_eda.ipynb"]
+}
